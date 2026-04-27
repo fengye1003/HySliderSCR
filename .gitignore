@@ -361,3 +361,21 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/.plastic
+/Assets/Extensions/TriLib
+/Assets/Fonts
+/Assets/Temp
+/Assets/TempFiles
+/Assets/TutorialInfo
+/Library
+/Temp
+/TempFiles
+/TempModels/25fd9fa94af2ba2440abd5c1c33b592013dae24d
+/TempZips
+/TempModels/29870d6d4a2eeaa52a25f6d6beca334f3c2c4b99
+/TempModels/d78a9b5259f5bc7fffdc9f71fbf3d3df0d23370b
+/TempModels
+/Log
+/Logs
+/Properties
+/Assets/Extensions
