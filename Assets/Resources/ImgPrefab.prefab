@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 6045166918141026202}
   - component: {fileID: 4493850819342924383}
   - component: {fileID: 3954305581887658864}
+  - component: {fileID: 2762870831085692613}
   m_Layer: 5
   m_Name: ImgPrefab
   m_TagString: Untagged
@@ -207,3 +208,33 @@ MonoBehaviour:
   startAnimation: 1
   foldDirection: 1
   isInitialized: 1
+  animFinished: 0
+--- !u!114 &2762870831085692613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3702734263545776921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c210ad64ef505428b5d0b57fe817b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlideInAnim
+  img: {fileID: 1453459077759143642}
+  MainCanvas: {fileID: 0}
+  panel: {fileID: 4265339549846453982}
+  image: {fileID: 3473261660363228670}
+  initSizeRatio: 1.2
+  initImageRatio: 1.5
+  TransparencyAnimDuration: 0.5
+  ResizeDuration: 0.4
+  SlideDuration: 0.4
+  AfterAnimDuration: 15
+  EnableTransparencyAnim: 1
+  EnableResizeAnim: 1
+  UseSmoothFormula: 1
+  startAnimation: 0
+  slideDirection: 4
+  isInitialized: 1
+  animFinished: 0

@@ -28,6 +28,8 @@ public class FoldInAnim : MonoBehaviour
     public bool isInitialized = true;
     float timer = 0;
 
+    public bool animFinished = false;
+
     public enum FoldDirection
     {
         Clockwise,
@@ -63,6 +65,7 @@ public class FoldInAnim : MonoBehaviour
         img.transform.localScale = new Vector3(initImageRatio, initImageRatio, initImageRatio);
         //transform.rotation = camRot * Quaternion.Euler(0, offset, 0);
         FitImage();
+        animFinished = false;
         isInitialized = true;
     }
 
@@ -179,6 +182,7 @@ public class FoldInAnim : MonoBehaviour
             else
             {
                 img.transform.localScale = new(1f, 1f, 1f);
+                animFinished = true;
             }
         }
     }

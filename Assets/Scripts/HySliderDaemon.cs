@@ -21,6 +21,7 @@ public class HySliderDaemon : MonoBehaviour
             gameObjects[i] = Instantiate(ImgPrefab);
             gameObjects[i].transform.SetParent(ScreenPanel.transform);
             gameObjects[i].GetComponent<FoldInAnim>().targetCamera = camera;
+            gameObjects[i].GetComponent<SlideInAnim>().MainCanvas = MainCanvas;
         }
         for (int i = 0; i < 4; i++)
         {
@@ -50,9 +51,9 @@ public class HySliderDaemon : MonoBehaviour
         timer += Time.deltaTime;
         for (int i = 0; i < gameObjects.Length; i++)
         {
-            if (!gameObjects[i].GetComponent<FoldInAnim>().startAnimation && timer >= 0.2f * i)
+            if (!gameObjects[i].GetComponent<SlideInAnim>().startAnimation && timer >= 0.2f * i)
             {
-                gameObjects[i].GetComponent<FoldInAnim>().startAnimation = true;
+                gameObjects[i].GetComponent<SlideInAnim>().startAnimation = true;
             }
         }
     }
