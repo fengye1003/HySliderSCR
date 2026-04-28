@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -107.18, y: 0}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 900, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5448952585501051977
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f6b4e7dd2c2eff6459fdad10571370d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 31c0e6853dc90d44795f6f5a36579d43, type: 3}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7843138, g: 0.7843138, b: 0.7843138, a: 0.392}
+  m_Color: {r: 0.7843138, g: 0.7843138, b: 0.7843138, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -194,6 +194,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FoldInAnim
   img: {fileID: 1453459077759143642}
   targetCamera: {fileID: 0}
-  offset: 45
-  startAnimation: 0
-  foldDirection: 5
+  panel: {fileID: 4265339549846453982}
+  image: {fileID: 3473261660363228670}
+  initOffset: 30
+  initSizeRatio: 1.2
+  initImageRatio: 1.5
+  TransparencyAnimDuration: 0.5
+  ResizeDuration: 0.4
+  FoldAnimDuration: 0.5
+  AfterAnimDuration: 15
+  UseSmoothFormula: 1
+  startAnimation: 1
+  foldDirection: 1
+  isInitialized: 1

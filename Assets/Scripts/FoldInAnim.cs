@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
@@ -8,15 +9,19 @@ public class FoldInAnim : MonoBehaviour
     public Image img;
     public Camera targetCamera;
     Quaternion camRot;
-    public float initOffset = 45;
+
+    public RectTransform panel;
+    public RectTransform image;
+
+    public float initOffset = 30;
     float offset;
-    public float initSizeRatio = 1.3f;
+    public float initSizeRatio = 1.2f;
     public float initImageRatio = 1.5f;
-    public float TransparencyAnimDuration = 2.0f;
-    public float ResizeDuration = 2.0f;
-    public float FoldAnimDuration = 2.0f;
-    public float AfterAnimDuration = 10.0f;
-    public bool UseSmoothFormula = false;
+    public float TransparencyAnimDuration = 0.5f;
+    public float ResizeDuration = 0.4f;
+    public float FoldAnimDuration = 0.5f;
+    public float AfterAnimDuration = 15;
+    public bool UseSmoothFormula = true;
     public bool startAnimation = false;
     bool isOnAnimStart = true;
     public FoldDirection foldDirection = FoldDirection.Clockreverse;
@@ -57,7 +62,25 @@ public class FoldInAnim : MonoBehaviour
         gameObject.transform.localScale = new Vector3(initSizeRatio, initSizeRatio, initSizeRatio);
         img.transform.localScale = new Vector3(initImageRatio, initImageRatio, initImageRatio);
         //transform.rotation = camRot * Quaternion.Euler(0, offset, 0);
+        FitImage();
         isInitialized = true;
+    }
+
+    public void FitImage()
+    {
+        float panelW = panel.rect.width;
+        float panelH = panel.rect.height;
+
+        // 用 sprite 原始尺寸，避免被 layout 污染
+        float imgW = img.sprite.rect.width;
+        float imgH = img.sprite.rect.height;
+
+        float scale = Mathf.Max(panelW / imgW, panelH / imgH);
+
+        float targetW = imgW * scale;
+        float targetH = imgH * scale;
+
+        image.sizeDelta = new Vector2(targetW, targetH);
     }
 
     // Update is called once per frame
@@ -85,7 +108,7 @@ public class FoldInAnim : MonoBehaviour
             
             if (UseSmoothFormula)
             {
-
+                canvasGroup.alpha = Convert.ToSingle(MathRepo.SmoothMovePhysicFormula(0f, 1f, TransparencyAnimDuration, timer));
             }
             else
             {
@@ -103,7 +126,7 @@ public class FoldInAnim : MonoBehaviour
         {
             if (UseSmoothFormula)
             {
-
+                offset = Convert.ToSingle(MathRepo.SmoothMovePhysicFormula(initOffset, 0f, FoldAnimDuration, timer));
             }
             else
             {
@@ -121,21 +144,37 @@ public class FoldInAnim : MonoBehaviour
 
         if (timer <= ResizeDuration)
         {
-            float percentage = Mathf.Clamp01(timer / ResizeDuration);
-            var value = Mathf.Lerp(initSizeRatio, 1f, percentage);
+            float value;
+            if (!UseSmoothFormula)
+            {
+                value = Convert.ToSingle(MathRepo.SmoothMovePhysicFormula(initSizeRatio, 1f, ResizeDuration, timer));
+            }
+            else
+            {
+                float percentage = Mathf.Clamp01(timer / ResizeDuration);
+                value = Mathf.Lerp(initSizeRatio, 1f, percentage);
+                //Debug.Log($"resize = {percentage}");
+            }
             gameObject.transform.localScale = new(value, value, value);
-            //Debug.Log($"resize = {percentage}");
         }
         else
         {
             gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
             if (timer <= ResizeDuration + AfterAnimDuration)
             {
-                float percentage = Mathf.Clamp01((timer - ResizeDuration) / AfterAnimDuration);
-                var value = Mathf.Lerp(initImageRatio, 1f, percentage);
+                float value;
+                if (UseSmoothFormula)
+                {
+                    value = Convert.ToSingle(MathRepo.SmoothMovePhysicFormula(initImageRatio, 1f, AfterAnimDuration, (timer - ResizeDuration)));
+                }
+                else
+                {
+                    float percentage = Mathf.Clamp01((timer - ResizeDuration) / AfterAnimDuration);
+                    value = Mathf.Lerp(initImageRatio, 1f, percentage);
+                    //Debug.Log($"after = {percentage}");
+                    //Debug.Log($"time = {timer -  ResizeDuration}");
+                }
                 img.transform.localScale = new(value, value, value);
-                //Debug.Log($"after = {percentage}");
-                //Debug.Log($"time = {timer -  ResizeDuration}");
             }
             else
             {
