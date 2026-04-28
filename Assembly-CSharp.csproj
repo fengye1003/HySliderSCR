@@ -55,6 +55,7 @@
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\TekoDotIOEssential\MathRepo.cs" />
     <Compile Include="Assets\Scripts\FoldInAnim.cs" />
+    <Compile Include="Assets\Scripts\FlashInAnim.cs" />
     <Compile Include="Assets\Scripts\TekoDotIOEssential\PropertiesHelper.cs" />
   </ItemGroup>
   <ItemGroup>

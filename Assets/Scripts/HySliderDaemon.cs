@@ -51,9 +51,9 @@ public class HySliderDaemon : MonoBehaviour
         timer += Time.deltaTime;
         for (int i = 0; i < gameObjects.Length; i++)
         {
-            if (!gameObjects[i].GetComponent<SlideInAnim>().startAnimation && timer >= 0.2f * i)
+            if (!gameObjects[i].GetComponent<FlashInAnim>().startAnimation && timer >= 0.2f * i)
             {
-                gameObjects[i].GetComponent<SlideInAnim>().startAnimation = true;
+                gameObjects[i].GetComponent<FlashInAnim>().startAnimation = true;
             }
         }
     }
