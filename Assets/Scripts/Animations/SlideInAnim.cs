@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static TransparentSharedAnim;
 using static ResizeSharedAnim;
+using static FitImageHelper;
 
 public class SlideInAnim : MonoBehaviour
 {
@@ -59,28 +60,13 @@ public class SlideInAnim : MonoBehaviour
         img.transform.localScale = ReverseAfterAnimDirection ?
             new Vector3(1f, 1f, 1f) :
             new Vector3(initImageRatio, initImageRatio, initImageRatio);
-        FitImage();
+        FitImage(panel, img, image);
         dest = gameObject.transform.localPosition;
         animFinished = false;
         isInitialized = true;
     }
 
-    public void FitImage()
-    {
-        float panelW = panel.rect.width;
-        float panelH = panel.rect.height;
-
-        // 用 sprite 原始尺寸，避免被 layout 污染
-        float imgW = img.sprite.rect.width;
-        float imgH = img.sprite.rect.height;
-
-        float scale = Mathf.Max(panelW / imgW, panelH / imgH);
-
-        float targetW = imgW * scale;
-        float targetH = imgH * scale;
-
-        image.sizeDelta = new Vector2(targetW, targetH);
-    }
+    
 
     // Update is called once per frame
     void Update()
@@ -143,7 +129,11 @@ public class SlideInAnim : MonoBehaviour
                 || (!EnableResizeAnim && !EnableAfterAnim))//均不启用
                 &&
                 ((timer > SlideDuration)
-                ))
+                )
+                &&
+                ((timer > TransparencyAnimDuration && EnableTransparencyAnim) //启用transparent
+                || !EnableTransparencyAnim)//不启用transparent
+            )
             animFinished = true;
 
     }

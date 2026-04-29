@@ -30,10 +30,10 @@ public class HySliderDaemon : MonoBehaviour
                 MainCanvas.GetComponent<RectTransform>().sizeDelta.x / 3, 
                 MainCanvas.GetComponent<RectTransform>().sizeDelta.y / 2);
             gameObjects[i].transform.localPosition = new(
-                MainCanvas.GetComponent<RectTransform>().sizeDelta.x / 6 * ((i % 2) * 2 + 1) - 
+                MainCanvas.GetComponent<RectTransform>().sizeDelta.x / 6 * ((i % 2) * 2 + 1) -
                 MainCanvas.GetComponent<RectTransform>().sizeDelta.x / 2,
-                MainCanvas.GetComponent<RectTransform>().sizeDelta.y / 4 * ((i / 2) * 2 + 1) -
-                MainCanvas.GetComponent<RectTransform>().sizeDelta.y / 2, 
+                -(MainCanvas.GetComponent<RectTransform>().sizeDelta.y / 4 * ((i / 2) * 2 + 1) -
+                MainCanvas.GetComponent<RectTransform>().sizeDelta.y / 2),
                 0);
         }
         gameObjects[4].GetComponent<RectTransform>().sizeDelta = new(

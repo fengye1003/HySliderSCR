@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using static TransparentSharedAnim;
 using static ResizeSharedAnim;
+using static FitImageHelper;
+
 
 public class FoldInAnim : MonoBehaviour
 {
@@ -70,27 +72,11 @@ public class FoldInAnim : MonoBehaviour
             new Vector3(1f, 1f, 1f) :
             new Vector3(initImageRatio, initImageRatio, initImageRatio);
         //transform.rotation = camRot * Quaternion.Euler(0, offset, 0);
-        FitImage();
+        FitImage(panel, img, image);
         animFinished = false;
         isInitialized = true;
     }
 
-    public void FitImage()
-    {
-        float panelW = panel.rect.width;
-        float panelH = panel.rect.height;
-
-        // 用 sprite 原始尺寸，避免被 layout 污染
-        float imgW = img.sprite.rect.width;
-        float imgH = img.sprite.rect.height;
-
-        float scale = Mathf.Max(panelW / imgW, panelH / imgH);
-
-        float targetW = imgW * scale;
-        float targetH = imgH * scale;
-
-        image.sizeDelta = new Vector2(targetW, targetH);
-    }
 
     // Update is called once per frame
     void Update()
