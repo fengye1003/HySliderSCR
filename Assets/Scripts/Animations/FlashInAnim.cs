@@ -6,7 +6,7 @@ using static ResizeSharedAnim;
 
 using static FitImageHelper;
 
-public class FlashInAnim : MonoBehaviour
+public class FlashInAnim : BaseAnim
 {
     CanvasGroup canvasGroup;
     public Image img;
@@ -25,12 +25,12 @@ public class FlashInAnim : MonoBehaviour
     public bool EnableAfterAnim = true;
     public bool UseSmoothFormula = true;
     public bool ReverseAfterAnimDirection = false;
-    public bool startAnimation = false;
+    //public bool startAnimation = false;
     bool isOnAnimStart = true;
-    public bool isInitialized = true;
+    //public bool isInitialized = true;
     float timer = 0;
 
-    public bool animFinished = false;
+    //public bool animFinished = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

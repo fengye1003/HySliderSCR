@@ -6,7 +6,7 @@ using static ResizeSharedAnim;
 using static FitImageHelper;
 
 
-public class FoldInAnim : MonoBehaviour
+public class FoldInAnim : BaseAnim
 {
     CanvasGroup canvasGroup;
     public Image img;
@@ -28,13 +28,13 @@ public class FoldInAnim : MonoBehaviour
     public bool EnableAfterAnim = true;
     public bool UseSmoothFormula = true;
     public bool ReverseAfterAnimDirection = false;
-    public bool startAnimation = false;
+    //public bool startAnimation = false;
     bool isOnAnimStart = true;
     public FoldDirection foldDirection = FoldDirection.Clockreverse;
-    public bool isInitialized = true;
+    //public bool isInitialized = true;
     float timer = 0;
 
-    public bool animFinished = false;
+    //public bool animFinished = false;
 
     public enum FoldDirection
     {

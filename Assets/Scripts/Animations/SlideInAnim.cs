@@ -5,7 +5,7 @@ using static TransparentSharedAnim;
 using static ResizeSharedAnim;
 using static FitImageHelper;
 
-public class SlideInAnim : MonoBehaviour
+public class SlideInAnim : BaseAnim
 {
     CanvasGroup canvasGroup;
     public Image img;
@@ -25,15 +25,15 @@ public class SlideInAnim : MonoBehaviour
     public bool EnableResizeAnim = true;
     public bool ReverseAfterAnimDirection = false;
     public bool UseSmoothFormula = true;
-    public bool startAnimation = false;
+    //public bool startAnimation = false;
     bool isOnAnimStart = true;
     public SlideDirection slideDirection = SlideDirection.LogicalRandom;
-    public bool isInitialized = true;
+    //public bool isInitialized = true;
     float timer = 0;
 
     Vector3 dest;
 
-    public bool animFinished = false;
+    //public bool animFinished = false;
 
     public enum SlideDirection
     {

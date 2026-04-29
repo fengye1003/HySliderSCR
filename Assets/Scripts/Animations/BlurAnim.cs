@@ -6,7 +6,7 @@ using static FitImageHelper;
 using static ResizeSharedAnim;
 using static TransparentSharedAnim;
 
-public class BlurAnim : MonoBehaviour
+public class BlurAnim : BaseAnim
 {
     CanvasGroup canvasGroup;
     public Image img;
@@ -28,12 +28,12 @@ public class BlurAnim : MonoBehaviour
     public bool ReverseAfterAnimDirection = false;
     public bool ReverseBlurAnim = false;
     public bool UseSmoothFormula = true;
-    public bool startAnimation = false;
+    //public bool startAnimation = false;
     bool isOnAnimStart = true;
-    public bool isInitialized = true;
+    //public bool isInitialized = true;
     float timer = 0;
 
-    public bool animFinished = false;
+    //public bool animFinished = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
