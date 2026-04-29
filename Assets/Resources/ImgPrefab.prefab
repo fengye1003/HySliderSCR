@@ -205,7 +205,10 @@ MonoBehaviour:
   ResizeDuration: 0.4
   FoldAnimDuration: 0.5
   AfterAnimDuration: 15
+  EnableResizeAnim: 1
+  EnableAfterAnim: 1
   UseSmoothFormula: 1
+  ReverseAfterAnimDirection: 0
   startAnimation: 1
   foldDirection: 1
   isInitialized: 1
@@ -233,7 +236,9 @@ MonoBehaviour:
   SlideDuration: 0.4
   AfterAnimDuration: 15
   EnableTransparencyAnim: 1
+  EnableAfterAnim: 1
   EnableResizeAnim: 1
+  ReverseAfterAnimDirection: 0
   UseSmoothFormula: 1
   startAnimation: 0
   slideDirection: 4
@@ -262,7 +267,9 @@ MonoBehaviour:
   AfterAnimDuration: 15
   EnableTransparencyAnim: 1
   EnableResizeAnim: 1
+  EnableAfterAnim: 1
   UseSmoothFormula: 1
+  ReverseAfterAnimDirection: 1
   startAnimation: 0
   isInitialized: 1
   animFinished: 0

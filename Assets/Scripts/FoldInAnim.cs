@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
+using static TransparentSharedAnim;
+using static ResizeSharedAnim;
 
 public class FoldInAnim : MonoBehaviour
 {
@@ -21,7 +22,10 @@ public class FoldInAnim : MonoBehaviour
     public float ResizeDuration = 0.4f;
     public float FoldAnimDuration = 0.5f;
     public float AfterAnimDuration = 15;
+    public bool EnableResizeAnim = true;
+    public bool EnableAfterAnim = true;
     public bool UseSmoothFormula = true;
+    public bool ReverseAfterAnimDirection = false;
     public bool startAnimation = false;
     bool isOnAnimStart = true;
     public FoldDirection foldDirection = FoldDirection.Clockreverse;
@@ -62,7 +66,9 @@ public class FoldInAnim : MonoBehaviour
         //Debug.Log(gameObject.transform.rotation);
         //Debug.Log(gameObject.transform.forward);
         gameObject.transform.localScale = new Vector3(initSizeRatio, initSizeRatio, initSizeRatio);
-        img.transform.localScale = new Vector3(initImageRatio, initImageRatio, initImageRatio);
+        img.transform.localScale = ReverseAfterAnimDirection ?
+            new Vector3(1f, 1f, 1f) :
+            new Vector3(initImageRatio, initImageRatio, initImageRatio);
         //transform.rotation = camRot * Quaternion.Euler(0, offset, 0);
         FitImage();
         animFinished = false;
@@ -101,30 +107,22 @@ public class FoldInAnim : MonoBehaviour
         {
             if (isOnAnimStart)
             {
+                InitializeAnim();
                 DoOffsetSync();
                 isOnAnimStart = false;
             }
         }
         timer += UnityEngine.Time.deltaTime;
-        if (timer <= TransparencyAnimDuration)
-        {
-            
-            if (UseSmoothFormula)
-            {
-                canvasGroup.alpha = Convert.ToSingle(MathRepo.SmoothMovePhysicFormula(0f, 1f, TransparencyAnimDuration, timer));
-            }
-            else
-            {
-                float percentage = Mathf.Clamp01(timer / TransparencyAnimDuration);
-                canvasGroup.alpha = Mathf.Lerp(0f, 1f, percentage);
-                //Debug.Log($"alpha = {percentage}");
-            }
-        }
-        else
-        {
-            canvasGroup.alpha = 1f;
-        }
 
+        //Transparency
+        ExecuteTransparentAnimUpdate(
+            true,
+            UseSmoothFormula,
+            timer, 
+            TransparencyAnimDuration, 
+            canvasGroup);
+
+        //Main Fold
         if (timer <= FoldAnimDuration) 
         {
             if (UseSmoothFormula)
@@ -145,46 +143,29 @@ public class FoldInAnim : MonoBehaviour
 
         DoOffsetSync();
 
-        if (timer <= ResizeDuration)
-        {
-            float value;
-            if (!UseSmoothFormula)
-            {
-                value = Convert.ToSingle(MathRepo.SmoothMovePhysicFormula(initSizeRatio, 1f, ResizeDuration, timer));
-            }
-            else
-            {
-                float percentage = Mathf.Clamp01(timer / ResizeDuration);
-                value = Mathf.Lerp(initSizeRatio, 1f, percentage);
-                //Debug.Log($"resize = {percentage}");
-            }
-            gameObject.transform.localScale = new(value, value, value);
-        }
-        else
-        {
-            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
-            if (timer <= ResizeDuration + AfterAnimDuration)
-            {
-                float value;
-                if (UseSmoothFormula)
-                {
-                    value = Convert.ToSingle(MathRepo.SmoothMovePhysicFormula(initImageRatio, 1f, AfterAnimDuration, (timer - ResizeDuration)));
-                }
-                else
-                {
-                    float percentage = Mathf.Clamp01((timer - ResizeDuration) / AfterAnimDuration);
-                    value = Mathf.Lerp(initImageRatio, 1f, percentage);
-                    //Debug.Log($"after = {percentage}");
-                    //Debug.Log($"time = {timer -  ResizeDuration}");
-                }
-                img.transform.localScale = new(value, value, value);
-            }
-            else
-            {
-                img.transform.localScale = new(1f, 1f, 1f);
-                animFinished = true;
-            }
-        }
+        //resize
+        ExecuteResizeAnimUpdate(
+            UseSmoothFormula,
+            EnableResizeAnim,
+            EnableAfterAnim,
+            ReverseAfterAnimDirection,
+            initSizeRatio,
+            initImageRatio,
+            ResizeDuration,
+            AfterAnimDuration,
+            timer,
+            gameObject,
+            img);
+        
+        if (
+                ((timer > AfterAnimDuration && !EnableResizeAnim)  //不启用resize,启用after
+                || (timer > ResizeDuration + AfterAnimDuration
+                && EnableResizeAnim) //启用resize和after
+                || (!EnableResizeAnim && !EnableAfterAnim))//均不启用
+                &&
+                ((timer > FoldAnimDuration)
+                ))
+            animFinished = true;
     }
 
     void DoOffsetSync()

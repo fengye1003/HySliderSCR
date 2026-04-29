@@ -50,9 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\HySliderDaemon.cs" />
+    <Compile Include="Assets\Scripts\SharedAnimations\ResizeSharedAnim.cs" />
     <Compile Include="Assets\Scripts\TekoDotIOEssential\Log.cs" />
     <Compile Include="Assets\Scripts\SlideInAnim.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\SharedAnimations\TransparentSharedAnim.cs" />
     <Compile Include="Assets\Scripts\TekoDotIOEssential\MathRepo.cs" />
     <Compile Include="Assets\Scripts\FoldInAnim.cs" />
     <Compile Include="Assets\Scripts\FlashInAnim.cs" />

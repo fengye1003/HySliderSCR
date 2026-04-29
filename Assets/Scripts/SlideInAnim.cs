@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using static TransparentSharedAnim;
+using static ResizeSharedAnim;
 
 public class SlideInAnim : MonoBehaviour
 {
@@ -18,7 +20,9 @@ public class SlideInAnim : MonoBehaviour
     public float SlideDuration = 0.4f;
     public float AfterAnimDuration = 15;
     public bool EnableTransparencyAnim = true;
+    public bool EnableAfterAnim = true;
     public bool EnableResizeAnim = true;
+    public bool ReverseAfterAnimDirection = false;
     public bool UseSmoothFormula = true;
     public bool startAnimation = false;
     bool isOnAnimStart = true;
@@ -52,7 +56,9 @@ public class SlideInAnim : MonoBehaviour
         canvasGroup.alpha = 0;
 
         gameObject.transform.localScale = new Vector3(initSizeRatio, initSizeRatio, initSizeRatio);
-        img.transform.localScale = new Vector3(initImageRatio, initImageRatio, initImageRatio);
+        img.transform.localScale = ReverseAfterAnimDirection ?
+            new Vector3(1f, 1f, 1f) :
+            new Vector3(initImageRatio, initImageRatio, initImageRatio);
         FitImage();
         dest = gameObject.transform.localPosition;
         animFinished = false;
@@ -91,6 +97,7 @@ public class SlideInAnim : MonoBehaviour
         {
             if (isOnAnimStart)
             {
+                InitializeAnim();
                 isOnAnimStart = false;
                 gameObject.transform.localPosition = ApplyRealtimePosition();
             }
@@ -98,27 +105,15 @@ public class SlideInAnim : MonoBehaviour
         timer += UnityEngine.Time.deltaTime;
 
         // Transparency
-        if (EnableTransparencyAnim && timer <= TransparencyAnimDuration)
-        {
-
-            if (UseSmoothFormula)
-            {
-                canvasGroup.alpha = Convert.ToSingle(MathRepo.SmoothMovePhysicFormula(0f, 1f, TransparencyAnimDuration, timer));
-            }
-            else
-            {
-                float percentage = Mathf.Clamp01(timer / TransparencyAnimDuration);
-                canvasGroup.alpha = Mathf.Lerp(0f, 1f, percentage);
-                //Debug.Log($"alpha = {percentage}");
-            }
-        }
-        else
-        {
-            canvasGroup.alpha = 1f;
-        }
+        ExecuteTransparentAnimUpdate(
+            EnableTransparencyAnim,
+            UseSmoothFormula,
+            timer,
+            TransparencyAnimDuration,
+            canvasGroup);
 
         // Slide
-        if(timer <= SlideDuration)
+        if (timer <= SlideDuration)
         {
             gameObject.transform.localPosition = ApplyRealtimePosition();
         }
@@ -128,51 +123,28 @@ public class SlideInAnim : MonoBehaviour
         }
 
         // Resize
-        if (timer <= ResizeDuration)
-        {
-            if (EnableResizeAnim)
-            {
-                float value;
-                if (!UseSmoothFormula)
-                {
-                    value = Convert.ToSingle(MathRepo.SmoothMovePhysicFormula(initSizeRatio, 1f, ResizeDuration, timer));
-                }
-                else
-                {
-                    float percentage = Mathf.Clamp01(timer / ResizeDuration);
-                    value = Mathf.Lerp(initSizeRatio, 1f, percentage);
-                    //Debug.Log($"resize = {percentage}");
-                }
-                gameObject.transform.localScale = new(value, value, value);
-            }
-            
-        }
-        else
-        {
-            gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
-            if (timer <= ResizeDuration + AfterAnimDuration)
-            {
-                float value;
-                if (UseSmoothFormula)
-                {
-                    value = Convert.ToSingle(MathRepo.SmoothMovePhysicFormula(initImageRatio, 1f, AfterAnimDuration, (timer - ResizeDuration)));
-                }
-                else
-                {
-                    float percentage = Mathf.Clamp01((timer - ResizeDuration) / AfterAnimDuration);
-                    value = Mathf.Lerp(initImageRatio, 1f, percentage);
-                    //Debug.Log($"after = {percentage}");
-                    //Debug.Log($"time = {timer -  ResizeDuration}");
-                }
-                img.transform.localScale = new(value, value, value);
-            }
-            else
-            {
-                img.transform.localScale = new(1f, 1f, 1f);
-                animFinished = true;
-            }
-        }
+        ExecuteResizeAnimUpdate(
+            UseSmoothFormula,
+            EnableResizeAnim,
+            EnableAfterAnim,
+            ReverseAfterAnimDirection,
+            initSizeRatio,
+            initImageRatio,
+            ResizeDuration,
+            AfterAnimDuration,
+            timer,
+            gameObject,
+            img);
 
+        if (
+                ((timer > AfterAnimDuration && !EnableResizeAnim)  //不启用resize,启用after
+                || (timer > ResizeDuration + AfterAnimDuration
+                && EnableResizeAnim) //启用resize和after
+                || (!EnableResizeAnim && !EnableAfterAnim))//均不启用
+                &&
+                ((timer > SlideDuration)
+                ))
+            animFinished = true;
 
     }
 
