@@ -194,6 +194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13ab3b38d3b0fa4db565beb30c78b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FoldInAnim
+  startAnimation: 1
+  isInitialized: 1
+  animFinished: 0
   img: {fileID: 1453459077759143642}
   targetCamera: {fileID: 0}
   panel: {fileID: 4265339549846453982}
@@ -209,10 +212,7 @@ MonoBehaviour:
   EnableAfterAnim: 1
   UseSmoothFormula: 1
   ReverseAfterAnimDirection: 0
-  startAnimation: 1
   foldDirection: 1
-  isInitialized: 1
-  animFinished: 0
 --- !u!114 &2762870831085692613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c210ad64ef505428b5d0b57fe817b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlideInAnim
+  startAnimation: 0
+  isInitialized: 1
+  animFinished: 0
   img: {fileID: 1453459077759143642}
   MainCanvas: {fileID: 0}
   panel: {fileID: 4265339549846453982}
@@ -240,10 +243,7 @@ MonoBehaviour:
   EnableResizeAnim: 1
   ReverseAfterAnimDirection: 0
   UseSmoothFormula: 1
-  startAnimation: 0
   slideDirection: 4
-  isInitialized: 1
-  animFinished: 0
 --- !u!114 &3067225426383122159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c67d2ebfad8afd408b2cfb5231bb1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashInAnim
+  startAnimation: 0
+  isInitialized: 1
+  animFinished: 0
   img: {fileID: 1453459077759143642}
   MainCanvas: {fileID: 0}
   panel: {fileID: 4265339549846453982}
@@ -269,7 +272,4 @@ MonoBehaviour:
   EnableResizeAnim: 1
   EnableAfterAnim: 1
   UseSmoothFormula: 1
-  ReverseAfterAnimDirection: 1
-  startAnimation: 0
-  isInitialized: 1
-  animFinished: 0
+  ReverseAfterAnimDirection: 0

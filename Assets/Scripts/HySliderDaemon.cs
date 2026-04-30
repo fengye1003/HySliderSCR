@@ -19,7 +19,7 @@ public class HySliderDaemon : MonoBehaviour
     void Start()
     {
         Instance = this;
-        var obj = Instantiate<PrefabPageCommon>(PagePrefabs[0]);
+        var obj = Instantiate<PrefabPageCommon>(PagePrefabs[1]);
         obj.parent = ScreenPanel.transform;
         obj.ImgPrefab = ImgPrefab;
         obj.MainCanvas = MainCanvas;
