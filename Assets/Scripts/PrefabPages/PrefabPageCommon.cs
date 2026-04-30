@@ -3,27 +3,62 @@ using UnityEngine;
 
 public class PrefabPageCommon : MonoBehaviour
 {
+    public bool StartAnim = false;
     public virtual Canvas MainCanvas { get; set; }
     public virtual GameObject ImgPrefab { get; set; }
     public virtual Transform parent { get; set; }
     public virtual Camera targetCamera { get; set; }
-    public virtual Canvas MainCanva { get; set; }
     public virtual int COUNT => 0;
+    public virtual float Delay => 0;
+
+    protected float _timer = 0f;
+    public virtual float timer
+    {
+        get => _timer;
+        set => _timer = value;
+    }
+
     public virtual GameObject[] gameObjects { get; set; }
     public virtual BaseAnim[] components { get; set; }
 
     public virtual Type AnimType { get; set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public virtual void Start()
     {
-        
+        if (AnimType == null)
+            AnimType = typeof(FlashInAnim);
+        if (ImgPrefab == null)
+            ImgPrefab = HySliderDaemon.Instance.ImgPrefab;
+        if (parent == null)
+            parent = HySliderDaemon.Instance.ScreenPanel.GetComponent<Transform>();
+        if (targetCamera == null)
+            targetCamera = HySliderDaemon.Instance.camera;
+        if (MainCanvas == null)
+            MainCanvas = HySliderDaemon.Instance.MainCanvas;
+        gameObjects = new GameObject[COUNT];
+        components = new BaseAnim[COUNT];
+
+        for (int i = 0; i < COUNT; i++)
+        {
+            gameObjects[i] = InstantiateImgPrefab();
+            components[i] = gameObjects[i].GetComponent(AnimType) as BaseAnim;
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
-        
+        if (!StartAnim)
+            return;
+        timer += Time.deltaTime;
+        for (int i = 0; i < gameObjects.Length; i++)
+        {
+            if (!components[i].startAnimation && timer >= Delay * i)
+            {
+                components[i].startAnimation = true;
+            }
+        }
     }
 
     public GameObject InstantiateImgPrefab()
@@ -55,4 +90,6 @@ public class PrefabPageCommon : MonoBehaviour
             components[i] = gameObjects[i].GetComponent(AnimType) as BaseAnim;
         }
     }
+
+
 }

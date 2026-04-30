@@ -6,19 +6,12 @@ public class PrefabPage2 : PrefabPageCommon
 {
     public override int COUNT => 5;
 
-    float timer = 0f;
+    //float timer = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
-        gameObjects = new GameObject[COUNT];
-        components = new BaseAnim[COUNT];
-
-        for (int i = 0; i < COUNT; i++)
-        {
-            gameObjects[i] = InstantiateImgPrefab();
-            components[i] = gameObjects[i].GetComponent(AnimType) as BaseAnim;
-        }
+        base.Start();
         for (int i = 0; i < 4; i++)
         {
             var rect = gameObjects[i].GetComponent<RectTransform>();
@@ -42,16 +35,9 @@ public class PrefabPage2 : PrefabPageCommon
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        timer += Time.deltaTime;
-        for (int i = 0; i < gameObjects.Length; i++)
-        {
-            if (!gameObjects[i].GetComponent<SlideInAnim>().startAnimation && timer >= 0.2f * i)
-            {
-                gameObjects[i].GetComponent<SlideInAnim>().startAnimation = true;
-            }
-        }
+        base.Update();
     }
     
 }

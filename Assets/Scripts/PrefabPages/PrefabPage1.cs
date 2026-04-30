@@ -6,13 +6,12 @@ public class PrefabPage1 : PrefabPageCommon
 {
     public override int COUNT => 1;
 
-    float timer = 0f;
+    //float timer = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
-        gameObjects = new GameObject[COUNT];
-        components = new BaseAnim[COUNT];
+        base.Start(); 
 
         for (int i = 0; i < COUNT; i++)
         {
@@ -27,16 +26,8 @@ public class PrefabPage1 : PrefabPageCommon
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        timer += Time.deltaTime;
-        for (int i = 0; i < gameObjects.Length; i++)
-        {
-            var comp = components[i];
-            if (!comp.startAnimation && timer >= 0.2f * i)
-            {
-                comp.startAnimation = true;
-            }
-        }
+        base.Update();
     }
 }
