@@ -1,6 +1,6 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +17,8 @@ public class HySliderDaemon : MonoBehaviour
     PrefabPageCommon lastPage;
     //Point
     PrefabPageCommon nextPage;
+
+    List<string> filteredStrs;
 
     bool switching = false;
 
@@ -75,6 +77,22 @@ public class HySliderDaemon : MonoBehaviour
         obj.MainCanvas = MainCanvas;
         obj.targetCamera = Camera.main;
         obj.SetAnim<T>();
+
+        var images = HySliderFilesHelper.FetchRandomImages(obj.COUNT, filteredStrs);
+        filteredStrs = images.Keys.ToList<string>();
+        for (int i = 0; i < obj.COUNT; i++)
+        {
+            var tex = images.Values.ToList<Texture2D>()[i];
+            obj.gameObjects[i].transform.GetChild(0)
+                .GetComponent<Image>().sprite = Sprite.Create(
+                    tex,
+                    new Rect(0, 0, tex.width, tex.height),
+                    new Vector2(0.5f, 0.5f)
+                );
+            //Debug.Log(obj.gameObjects[i].transform.GetChild(0).name);
+            //
+        }
+
         obj.StartAnim = true;
         return obj;
     }

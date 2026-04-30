@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PrefabPages\PrefabPage11.cs" />
     <Compile Include="Assets\Scripts\PrefabPages\PrefabPage8.cs" />
+    <Compile Include="Assets\Scripts\HySliderFilesHelper.cs" />
     <Compile Include="Assets\Scripts\HySliderDaemon.cs" />
     <Compile Include="Assets\Scripts\PrefabPages\PrefabPage1.cs" />
     <Compile Include="Assets\Scripts\SharedAnimations\ResizeSharedAnim.cs" />

@@ -203,7 +203,7 @@ MonoBehaviour:
   image: {fileID: 3473261660363228670}
   initOffset: 30
   initSizeRatio: 1.2
-  initImageRatio: 1.5
+  initImageRatio: 1.2
   TransparencyAnimDuration: 0.5
   ResizeDuration: 0.4
   FoldAnimDuration: 0.5
@@ -233,7 +233,7 @@ MonoBehaviour:
   panel: {fileID: 4265339549846453982}
   image: {fileID: 3473261660363228670}
   initSizeRatio: 1.2
-  initImageRatio: 1.5
+  initImageRatio: 1.2
   TransparencyAnimDuration: 0.5
   ResizeDuration: 0.4
   SlideDuration: 0.4
@@ -264,7 +264,7 @@ MonoBehaviour:
   panel: {fileID: 4265339549846453982}
   image: {fileID: 3473261660363228670}
   initSizeRatio: 0.7
-  initImageRatio: 1.5
+  initImageRatio: 1.2
   TransparencyAnimDuration: 0.5
   ResizeDuration: 0.4
   AfterAnimDuration: 15
