@@ -11,18 +11,20 @@ public class PrefabPage1 : PrefabPageCommon
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
     {
-        base.Start(); 
+        base.Start();
+        var canvasSize = MainCanvas.GetComponent<RectTransform>().sizeDelta;
 
-        for (int i = 0; i < COUNT; i++)
-        {
-            gameObjects[i] = InstantiateImgPrefab();
-            components[i] = gameObjects[i].GetComponent(AnimType) as BaseAnim;
-            var rect = gameObjects[i].GetComponent<RectTransform>();
-            rect.sizeDelta = new(
-                MainCanvas.GetComponent<RectTransform>().sizeDelta.x / 1,
-                MainCanvas.GetComponent<RectTransform>().sizeDelta.y / 1);
-        }
-        gameObjects[0].transform.localPosition = new(0, 0, 0);
+        ConfigImgPrefab(gameObjects[0],
+
+                new(
+                canvasSize.x / 1,
+                canvasSize.y / 1),
+
+                new(
+                0,
+                0)
+                );
+
     }
 
     // Update is called once per frame

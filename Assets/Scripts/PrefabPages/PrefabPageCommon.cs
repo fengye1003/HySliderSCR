@@ -114,5 +114,13 @@ public class PrefabPageCommon : MonoBehaviour
         }
     }
 
-
+    protected void ConfigImgPrefab(GameObject gameObject, Vector2 size,
+        Vector2 position)
+    {
+        var rect = gameObject.GetComponent<RectTransform>();
+        rect.sizeDelta = size;
+        gameObject.transform.localPosition = new(position.x,
+            position.y,
+            0);
+    }
 }

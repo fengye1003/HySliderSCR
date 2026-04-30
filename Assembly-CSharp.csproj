@@ -58,10 +58,14 @@
     <Compile Include="Assets\Scripts\TekoDotIOEssential\Log.cs" />
     <Compile Include="Assets\Scripts\Animations\FoldInAnim.cs" />
     <Compile Include="Assets\Scripts\SharedAnimations\FitImageHelper.cs" />
+    <Compile Include="Assets\Scripts\PrefabPages\PrefabPage4.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\PrefabPages\PrefabPage6.cs" />
     <Compile Include="Assets\Scripts\SharedAnimations\TransparentSharedAnim.cs" />
+    <Compile Include="Assets\Scripts\PrefabPages\PrefabPage3.cs" />
     <Compile Include="Assets\Scripts\TekoDotIOEssential\MathRepo.cs" />
     <Compile Include="Assets\Scripts\PrefabPages\PrefabPage2.cs" />
+    <Compile Include="Assets\Scripts\PrefabPages\PrefabPage5.cs" />
     <Compile Include="Assets\Scripts\Animations\FlashInAnim.cs" />
     <Compile Include="Assets\Scripts\Animations\BlurAnim.cs" />
     <Compile Include="Assets\Scripts\TekoDotIOEssential\PropertiesHelper.cs" />
