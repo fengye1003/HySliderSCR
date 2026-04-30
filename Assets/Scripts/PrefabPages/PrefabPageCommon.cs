@@ -28,14 +28,14 @@ public class PrefabPageCommon : MonoBehaviour
     {
         if (AnimType == null)
             AnimType = typeof(FlashInAnim);
-        if (ImgPrefab == null)
-            ImgPrefab = HySliderDaemon.Instance.ImgPrefab;
-        if (parent == null)
-            parent = HySliderDaemon.Instance.ScreenPanel.GetComponent<Transform>();
-        if (targetCamera == null)
-            targetCamera = HySliderDaemon.Instance.camera;
-        if (MainCanvas == null)
-            MainCanvas = HySliderDaemon.Instance.MainCanvas;
+        //if (ImgPrefab == null)
+        //    ImgPrefab = HySliderDaemon.Instance.ImgPrefab;
+        //if (parent == null)
+        //    parent = HySliderDaemon.Instance.ScreenPanel.GetComponent<Transform>();
+        //if (targetCamera == null)
+        //    targetCamera = HySliderDaemon.Instance.camera;
+        //if (MainCanvas == null)
+        //    MainCanvas = HySliderDaemon.Instance.MainCanvas;
         gameObjects = new GameObject[COUNT];
         components = new BaseAnim[COUNT];
 
@@ -87,7 +87,11 @@ public class PrefabPageCommon : MonoBehaviour
         AnimType = typeof(T);
         for (int i = 0; i < COUNT; i++)
         {
+            Debug.Log(i);
+            Debug.Log(gameObjects[i] == null);
+            Debug.Log(gameObjects[i].GetComponent(AnimType) == null);
             components[i] = gameObjects[i].GetComponent(AnimType) as BaseAnim;
+            
         }
     }
 
