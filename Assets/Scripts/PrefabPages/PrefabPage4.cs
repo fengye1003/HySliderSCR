@@ -49,7 +49,7 @@ public class PrefabPage4 : PrefabPageCommon
                 canvasSize.y / 3),
 
                 new(
-                canvasSize.x / 8 * (4 * 2 + 1) -
+                canvasSize.x / 8 * (3 * 2 + 1) -
                 canvasSize.x / 2,
                 -(canvasSize.y / 6 -
                 canvasSize.y / 2))

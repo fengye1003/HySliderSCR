@@ -2,9 +2,9 @@ using System;
 //using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
-public class PrefabPage3 : PrefabPageCommon
+public class PrefabPage9 : PrefabPageCommon
 {
-    public override int COUNT => 5;
+    public override int COUNT => 3;
 
     //float timer = 0f;
 
@@ -13,18 +13,20 @@ public class PrefabPage3 : PrefabPageCommon
     {
         base.Start();
         var canvasSize = MainCanvas.GetComponent<RectTransform>().sizeDelta;
+
         ConfigImgPrefab(gameObjects[0],
 
                 new(
-                canvasSize.x / 3,
+                canvasSize.x / 3 * 2,
                 canvasSize.y),
 
                 new(
-                -canvasSize.x / 6 * 2,
+                (canvasSize.x / 3 -
+                canvasSize.x / 2),
                 0)
                 );
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
         {
             ConfigImgPrefab(gameObjects[i + 1],
 
@@ -33,13 +35,14 @@ public class PrefabPage3 : PrefabPageCommon
                 canvasSize.y / 2),
 
                 new(
-                canvasSize.x / 6 * ((i % 2) * 2 + 3) -
+                canvasSize.x / 6 * 5 -
                 canvasSize.x / 2,
-                -(canvasSize.y / 4 * ((i / 2) * 2 + 1) -
+                -(canvasSize.y / 4 * (1 + i * 2) -
                 canvasSize.y / 2))
                 );
+
         }
-        
+
     }
 
     // Update is called once per frame

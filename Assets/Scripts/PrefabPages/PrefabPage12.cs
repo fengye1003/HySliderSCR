@@ -2,7 +2,7 @@ using System;
 //using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
-public class PrefabPage5 : PrefabPageCommon
+public class PrefabPage12 : PrefabPageCommon
 {
     public override int COUNT => 6;
 
@@ -13,61 +13,60 @@ public class PrefabPage5 : PrefabPageCommon
     {
         base.Start();
         var canvasSize = MainCanvas.GetComponent<RectTransform>().sizeDelta;
-        ConfigImgPrefab(gameObjects[0],
-
-                new(
-                canvasSize.x / 4,
-                canvasSize.y / 3),
-
-                new(
-                -(canvasSize.x / 8 * (3 * 2 + 1) -
-                canvasSize.x / 2),
-                -(canvasSize.y / 6 -
-                canvasSize.y / 2))
-                );
-
-        ConfigImgPrefab(gameObjects[1],
-
-                new(
-                canvasSize.x / 4 * 1,
-                canvasSize.y / 3 * 2),
-
-                new(
-                -(canvasSize.x / 8 * 7 -
-                canvasSize.x / 2),
-                -(canvasSize.y / 6 * 4 -
-                canvasSize.y / 2))
-                );
         for (int i = 0; i < 3; i++)
         {
-            ConfigImgPrefab(gameObjects[i + 2],
+            ConfigImgPrefab(gameObjects[i],
 
                 new(
                 canvasSize.x / 4,
                 canvasSize.y / 3),
 
                 new(
-                (canvasSize.x / 8 * (i * 2 + 3) -
-                canvasSize.x / 2),
+                canvasSize.x / 8 * (i * 2 + 1) -
+                canvasSize.x / 2,
                 -(canvasSize.y / 6 -
                 canvasSize.y / 2))
                 );
         }
 
-        ConfigImgPrefab(gameObjects[5],
+        ConfigImgPrefab(gameObjects[3],
 
                 new(
                 canvasSize.x / 4 * 3,
                 canvasSize.y / 3 * 2),
 
                 new(
-                -(canvasSize.x / 8 * 3 -
-                canvasSize.x / 2),
+                canvasSize.x / 8 * 3 -
+                canvasSize.x / 2,
                 -(canvasSize.y / 6 * 4 -
                 canvasSize.y / 2))
                 );
 
-        
+        ConfigImgPrefab(gameObjects[4],
+
+                new(
+                canvasSize.x / 4,
+                canvasSize.y / 2),
+
+                new(
+                canvasSize.x / 8 * (3 * 2 + 1) -
+                canvasSize.x / 2,
+                -(canvasSize.y / 4 -
+                canvasSize.y / 2))
+                );
+
+        ConfigImgPrefab(gameObjects[5],
+
+                new(
+                canvasSize.x / 4 * 1,
+                canvasSize.y / 2),
+
+                new(
+                canvasSize.x / 8 * 7 -
+                canvasSize.x / 2,
+                -(canvasSize.y / 4 * 3 -
+                canvasSize.y / 2))
+                );
     }
 
     // Update is called once per frame

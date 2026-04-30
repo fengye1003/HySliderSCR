@@ -19,12 +19,12 @@ public class HySliderDaemon : MonoBehaviour
     void Start()
     {
         Instance = this;
-        var obj = Instantiate<PrefabPageCommon>(PagePrefabs[1]);
+        var obj = Instantiate<PrefabPageCommon>(PagePrefabs[12]);
         obj.parent = ScreenPanel.transform;
         obj.ImgPrefab = ImgPrefab;
         obj.MainCanvas = MainCanvas;
         obj.targetCamera = Camera.main;
-        obj.SetAnim<SlideInAnim>();
+        obj.SetAnim<FoldInAnim>();
         obj.StartAnim = true;
     }
 

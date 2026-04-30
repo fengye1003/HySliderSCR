@@ -2,7 +2,7 @@ using System;
 //using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
-public class PrefabPage5 : PrefabPageCommon
+public class PrefabPage13 : PrefabPageCommon
 {
     public override int COUNT => 6;
 
@@ -17,12 +17,12 @@ public class PrefabPage5 : PrefabPageCommon
 
                 new(
                 canvasSize.x / 4,
-                canvasSize.y / 3),
+                canvasSize.y / 2),
 
                 new(
                 -(canvasSize.x / 8 * (3 * 2 + 1) -
                 canvasSize.x / 2),
-                -(canvasSize.y / 6 -
+                -(canvasSize.y / 4 -
                 canvasSize.y / 2))
                 );
 
@@ -30,12 +30,12 @@ public class PrefabPage5 : PrefabPageCommon
 
                 new(
                 canvasSize.x / 4 * 1,
-                canvasSize.y / 3 * 2),
+                canvasSize.y / 2),
 
                 new(
                 -(canvasSize.x / 8 * 7 -
                 canvasSize.x / 2),
-                -(canvasSize.y / 6 * 4 -
+                -(canvasSize.y / 4 * 3 -
                 canvasSize.y / 2))
                 );
         for (int i = 0; i < 3; i++)
