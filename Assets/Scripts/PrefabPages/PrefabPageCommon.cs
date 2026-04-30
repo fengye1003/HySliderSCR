@@ -26,7 +26,7 @@ public class PrefabPageCommon : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
-        Debug.Log("start.");
+        //Debug.Log("start.");
         if (gameObjects == null || components == null)
         {
             InitAllLists();
@@ -106,9 +106,9 @@ public class PrefabPageCommon : MonoBehaviour
         AnimType = typeof(T);
         for (int i = 0; i < COUNT; i++)
         {
-            Debug.Log(i);
-            Debug.Log(gameObjects[i] == null);
-            Debug.Log(gameObjects[i].GetComponent(AnimType) == null);
+            //Debug.Log(i);
+            //Debug.Log(gameObjects[i] == null);
+            //Debug.Log(gameObjects[i].GetComponent(AnimType) == null);
             components[i] = gameObjects[i].GetComponent(AnimType) as BaseAnim;
             
         }
