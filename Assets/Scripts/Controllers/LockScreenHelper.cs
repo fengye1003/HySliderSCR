@@ -61,8 +61,10 @@ public class LockScreenHelper
     public static void ForceTopMost()
     {
         // Unity 层面
+        var r = Screen.currentResolution;
+        //Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-
+        Screen.SetResolution(r.width, r.height, true);
         hwnd = Process.GetCurrentProcess().MainWindowHandle;
         // Win32 强制 TopMost
         SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0,
@@ -70,22 +72,33 @@ public class LockScreenHelper
 
     }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
     public static void ParseArgs()
     {
         string[] args = Environment.GetCommandLineArgs();
 
         foreach (var arg in args)
         {
-            Log.SaveLog(arg);
+            //Log.SaveLog(arg);
             if (arg.StartsWith("/p") || arg.StartsWith("-p"))
+            {
                 isPreview = true;
+                var r = Screen.currentResolution;
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                Screen.SetResolution(r.width, r.height, true);
+            }
+
 
             if (arg.StartsWith("/c") || arg.StartsWith("-c"))
                 isConfig = true;
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+            Screen.SetResolution(640, 380, false);
 
             if (arg.StartsWith("/s") || arg.StartsWith("-s"))
             {
-
+                var r = Screen.currentResolution;
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                Screen.SetResolution(r.width, r.height, true);
             }
 
             if (arg.StartsWith("/p"))

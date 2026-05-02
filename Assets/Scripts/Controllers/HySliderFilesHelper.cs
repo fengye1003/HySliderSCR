@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class HySliderFilesHelper : MonoBehaviour
 {
-    public static string relativeImagesPath = "./Images/";
+    public static string relativeImagesPath = "./";
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,7 +24,7 @@ public class HySliderFilesHelper : MonoBehaviour
 
     public static Dictionary<string, Texture2D> FetchRandomImages(int count, List<string> filteredFiles = null)
     {
-        string basePath = AppDomain.CurrentDomain.BaseDirectory;
+        string basePath = HySliderDaemon.imgPath;
         string ImagesPath = Path.Combine(basePath, relativeImagesPath);
         if (!Directory.Exists(ImagesPath))
         {

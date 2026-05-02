@@ -32,7 +32,7 @@ namespace Playsis.Essencial_Repos
                     message = "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + "] " + message;
                     if (EnableWriting)
                     {
-                        string Path = AppDomain.CurrentDomain.BaseDirectory;
+                        string Path = Application.persistentDataPath;
                         //string Path = $"./";
                         
                         //空格是为了增强日志可读性,DateTime的作用是获取目前时间
@@ -49,8 +49,9 @@ namespace Playsis.Essencial_Repos
                 }
 
             }
-            catch
+            catch (Exception ex) 
             {
+                UnityEngine.Debug.Log(ex);
                 SaveLog(message);
             }
         }
@@ -73,7 +74,7 @@ namespace Playsis.Essencial_Repos
                     message = "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + $"] [{module}] " + message;
                     if (EnableWriting)
                     {
-                        string Path = AppDomain.CurrentDomain.BaseDirectory;
+                        string Path = Application.persistentDataPath;
 
                         //空格是为了增强日志可读性,DateTime的作用是获取目前时间
                         Directory.CreateDirectory($"{Path}/Log/");
@@ -89,8 +90,9 @@ namespace Playsis.Essencial_Repos
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
+                UnityEngine.Debug.Log(ex);
                 SaveLog(message, module);
             }
         }
@@ -113,7 +115,7 @@ namespace Playsis.Essencial_Repos
                     message = "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + "] " + message;
                     if (EnableWriting)
                     {
-                        string Path = AppDomain.CurrentDomain.BaseDirectory;
+                        string Path = Application.persistentDataPath;
 
                         //空格是为了增强日志可读性,DateTime的作用是获取目前时间
                         Directory.CreateDirectory($"{Path}/Log/");
@@ -131,8 +133,9 @@ namespace Playsis.Essencial_Repos
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
+                UnityEngine.Debug.Log(ex);
                 SaveLog(message, output);
             }
         }
@@ -154,7 +157,7 @@ namespace Playsis.Essencial_Repos
                 message = "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + $"] [{module}] " + message;
                 if (EnableWriting)
                 {
-                    string Path = AppDomain.CurrentDomain.BaseDirectory;
+                    string Path = Application.persistentDataPath;
 
                     //空格是为了增强日志可读性,DateTime的作用是获取目前时间
                     Directory.CreateDirectory($"{Path}/Log/");
@@ -173,14 +176,15 @@ namespace Playsis.Essencial_Repos
                 }
 
             }
-            catch
+            catch (Exception ex)
             {
+                UnityEngine.Debug.Log(ex);
                 SaveLog(message, module, output);
             }
         }
         public static void DoLogCleanUp()
         {
-            string Path = AppDomain.CurrentDomain.BaseDirectory;
+            string Path = Application.persistentDataPath;
             Directory.CreateDirectory($"{Path}/Log/");
             var logFilesList = Directory.GetFiles($"{Path}/Log/");
             foreach (var logPath in logFilesList)
@@ -190,7 +194,7 @@ namespace Playsis.Essencial_Repos
         }
         public static void DoLogCleanUp(int saveEntries)
         {
-            string Path = AppDomain.CurrentDomain.BaseDirectory;
+            string Path = Application.persistentDataPath;
             Directory.CreateDirectory($"{Path}/Log/");
             var logFilesList = Directory.GetFiles($"{Path}/Log/");
             if (logFilesList.Length < saveEntries)

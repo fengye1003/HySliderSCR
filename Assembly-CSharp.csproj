@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\PrefabPages\PrefabPage11.cs" />
+    <Compile Include="Assets\Scripts\Controllers\RandomController.cs" />
     <Compile Include="Assets\Scripts\PrefabPages\PrefabPage8.cs" />
     <Compile Include="Assets\Scripts\Controllers\LockScreenHelper.cs" />
     <Compile Include="Assets\Scripts\Controllers\HySliderDaemon.cs" />

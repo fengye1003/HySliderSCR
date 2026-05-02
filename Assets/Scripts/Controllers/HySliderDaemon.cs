@@ -29,20 +29,34 @@ public class HySliderDaemon : MonoBehaviour
 
     float timer = 0f;
 
-    string Path = AppDomain.CurrentDomain.BaseDirectory;
+    string Path => Application.persistentDataPath;
 
     public static Hashtable MainConfig;
     public static Hashtable AnimConfig;
     public static Hashtable PageConfig;
 
+    static bool reverseAfterAnim = false;
+    public static string imgPath = "D:/imgs/";
+    static float maxImgScale = 1.2f;
+    static float maxBlockScale = 1.2f;
+    static float maxAngleDeg = 30;
+    static float afterAnimDuration = 15;
+    static float transparencyDuration = 0.5f;
+    static float resizeDuration = 0.4f;
+    static float foldDuration = 0.5f;
+    static float slideDuration = 0.4f;
+    static bool useSmoothFormula = true;
+
     public static Hashtable mainConfigStandard = new()
     {
         { "type", "hySliderDaemon.Main" },
+        { "imgPath", "D:/imgs/" },
         { "reverseAfterAnim" , "false" },
         { "maxImgScale", "1.2" },
         { "maxBlockScale", "1.2" },
         { "maxAngleDeg", "30" },
         { "transparencyDuration", "0.5" },
+        { "afterAnimDuration", "15" },
         { "resizeDuration", "0.4" },
         { "foldDuration", "0.5" },
         { "slideDuration", "0.4" },
@@ -67,8 +81,8 @@ public class HySliderDaemon : MonoBehaviour
     void Start()
     {
         Instance = this;
-        
 
+        
 
 #if UNITY_EDITOR
         //UnityEditor.EditorApplication.isPlaying = false;
@@ -77,7 +91,7 @@ public class HySliderDaemon : MonoBehaviour
 #endif
         if (!Directory.Exists(Path + "/Properties"))
         {
-            Directory.CreateDirectory(Path + "./Properties");
+            Directory.CreateDirectory(Path + "/Properties");
         }
         MainConfig = 
             PropertiesHelper.AutoCheck(
@@ -91,6 +105,36 @@ public class HySliderDaemon : MonoBehaviour
             PropertiesHelper.AutoCheck(
                 pageWeightsConfigStandard,
                 Path + "/Properties/pages.properties");
+
+        reverseAfterAnim =
+            (string)MainConfig["reverseAfterAnim"] == "true";
+        useSmoothFormula =
+            (string)MainConfig["useSmoothFormula"] == "true";
+        maxImgScale =
+            Convert.ToSingle(
+                (string)MainConfig["maxImgScale"]);
+        maxBlockScale =
+            Convert.ToSingle(
+                (string)MainConfig["maxBlockScale"]);
+        maxAngleDeg =
+            Convert.ToSingle(
+                (string)MainConfig["maxAngleDeg"]);
+        transparencyDuration =
+            Convert.ToSingle(
+                (string)MainConfig["transparencyDuration"]);
+        resizeDuration =
+            Convert.ToSingle(
+                (string)MainConfig["resizeDuration"]);
+        foldDuration =
+            Convert.ToSingle(
+                (string)MainConfig["foldDuration"]);
+        slideDuration =
+            Convert.ToSingle(
+                (string)MainConfig["slideDuration"]);
+        afterAnimDuration =
+            Convert.ToSingle(
+                (string)MainConfig["afterAnimDuration"]);
+        imgPath = (string)MainConfig["imgPath"];
     }
 
     
@@ -105,8 +149,9 @@ public class HySliderDaemon : MonoBehaviour
             if (!switching)
             {
                 switching = true;
-                int index = r.Next(PagePrefabs.Count);
-                switch (r.Next(3))
+                //int index = r.Next(PagePrefabs.Count);
+                int index = RandomController.GetRandomPagePrefabId();
+                switch (RandomController.GetRandomAnimId())
                 {
                     case 0:
                         nextPage = InstantiatePagePrefab<SlideInAnim>(index);
@@ -143,6 +188,50 @@ public class HySliderDaemon : MonoBehaviour
         obj.targetCamera = Camera.main;
         obj.SetAnim<T>();
 
+        if (typeof(T) == typeof(SlideInAnim))
+        {
+            foreach (SlideInAnim sia in obj.components)
+            {
+
+                sia.initImageRatio = maxImgScale;
+                sia.initSizeRatio = maxBlockScale;
+                sia.SlideDuration = slideDuration;
+                sia.ResizeDuration = resizeDuration;
+                sia.AfterAnimDuration = afterAnimDuration;
+                sia.ReverseAfterAnimDirection = reverseAfterAnim;
+                sia.UseSmoothFormula = useSmoothFormula;
+            }
+        }
+        else if (typeof(T) == typeof(FoldInAnim))
+        {
+            foreach (FoldInAnim foia in obj.components)
+            {
+
+                foia.initImageRatio = maxImgScale;
+                foia.initSizeRatio = maxBlockScale;
+                foia.FoldAnimDuration = foldDuration;
+                foia.ResizeDuration = resizeDuration;
+                foia.AfterAnimDuration = afterAnimDuration;
+                foia.ReverseAfterAnimDirection = reverseAfterAnim;
+                foia.UseSmoothFormula = useSmoothFormula;
+            }
+        }
+        else if (typeof(T) == typeof(FlashInAnim))
+        {
+            foreach (FlashInAnim flia in obj.components)
+            {
+
+                flia.initImageRatio = maxImgScale;
+                flia.initSizeRatio = maxBlockScale;
+                flia.ResizeDuration = resizeDuration;
+                flia.AfterAnimDuration = afterAnimDuration;
+                flia.ReverseAfterAnimDirection = reverseAfterAnim;
+                flia.UseSmoothFormula = useSmoothFormula;
+            }
+        }
+
+
+
         var images = HySliderFilesHelper.FetchRandomImages(obj.COUNT, filteredStrs);
         filteredStrs = images.Keys.ToList<string>();
         for (int i = 0; i < obj.COUNT; i++)
@@ -172,7 +261,7 @@ public class HySliderDaemon : MonoBehaviour
         //Debug.Log("Destroyed last page.");
     }
 
-    void KillOtherInstances()
+    public void KillOtherInstances()
     {
         Process current = Process.GetCurrentProcess();
         string processName = current.ProcessName;

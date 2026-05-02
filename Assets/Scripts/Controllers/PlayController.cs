@@ -7,18 +7,29 @@ using UnityEngine;
 public class PlayController : MonoBehaviour
 {
     float timer;
-    string Path = AppDomain.CurrentDomain.BaseDirectory;
+    string Path => Application.persistentDataPath;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        UnityEngine.Debug.Log(Application.persistentDataPath);
+#if UNITY_EDITOR
+		return;
+#endif
         LockScreenHelper.ParseArgs();
         if (!LockScreenHelper.isPreview && !LockScreenHelper.isConfig && !LockScreenHelper.isSmall)
         {
 
 #if !UNITY_EDITOR && UNITY_STANDALONE_WIN
-            //LockScreenHelper.ForceTopMost();
+            LockScreenHelper.ForceTopMost();
 #endif
+        }
+        if (LockScreenHelper.isPreview)
+        {
+            var r = Screen.currentResolution;
+            Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+            Screen.SetResolution(r.width, r.height, true);
+            //Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         }
         if (LockScreenHelper.isSmall)
         {
@@ -55,9 +66,9 @@ public class PlayController : MonoBehaviour
         //if (timer <= 2f)//fxxk you nvidia//sorry its my fault
         //    return;
 
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
+//#if UNITY_EDITOR
+//        UnityEditor.EditorApplication.isPlaying = false;
+//#endif
 
         if (!LockScreenHelper.isPreview && !LockScreenHelper.isConfig && !LockScreenHelper.isSmall)
         {
