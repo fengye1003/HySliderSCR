@@ -23,6 +23,10 @@ public class HySliderDaemon : MonoBehaviour
     //Point
     PrefabPageCommon nextPage;
 
+    Dictionary<string, Texture2D> lastTextures;
+    Dictionary<string, Texture2D> nextTextures;
+
+
     List<string> filteredStrs;
 
     bool switching = false;
@@ -151,6 +155,7 @@ public class HySliderDaemon : MonoBehaviour
                 switching = true;
                 //int index = r.Next(PagePrefabs.Count);
                 int index = RandomController.GetRandomPagePrefabId();
+                lastTextures = nextTextures;
                 switch (RandomController.GetRandomAnimId())
                 {
                     case 0:
@@ -172,6 +177,13 @@ public class HySliderDaemon : MonoBehaviour
                 if (nextPage.AllCompleted())
                 {
                     if (lastPage != null) DestroyPage(lastPage);
+                    if (lastTextures != null)
+                    {
+                        foreach (var item in lastTextures)
+                        {
+                            Destroy(item.Value);
+                        }
+                    }
                     lastPage = nextPage;
                     switching = false;
                 }
@@ -233,6 +245,7 @@ public class HySliderDaemon : MonoBehaviour
 
 
         var images = HySliderFilesHelper.FetchRandomImages(obj.COUNT, filteredStrs);
+        nextTextures = images;
         filteredStrs = images.Keys.ToList<string>();
         for (int i = 0; i < obj.COUNT; i++)
         {
@@ -243,6 +256,8 @@ public class HySliderDaemon : MonoBehaviour
                     new Rect(0, 0, tex.width, tex.height),
                     new Vector2(0.5f, 0.5f)
                 );
+            obj.gameObjects[i].transform.GetChild(0)
+                .GetComponent<Image>().name = images.Keys.ToList<string>()[i];
             //Debug.Log(obj.gameObjects[i].transform.GetChild(0).name);
             //
         }

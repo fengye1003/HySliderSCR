@@ -10,7 +10,7 @@ public class HoldLoginStatusHelper : MonoBehaviour
     private const uint ES_DISPLAY_REQUIRED = 0x00000002;
     private const uint ES_SYSTEM_REQUIRED = 0x00000001;
 
-    static void OnEnable()
+    void Start()
     {
 #if UNITY_STANDALONE_WIN && !UNITY_EDITOR
         // 防止系统休眠 + 防止关闭显示器
@@ -18,11 +18,4 @@ public class HoldLoginStatusHelper : MonoBehaviour
 #endif
     }
 
-    static void OnDisable()
-    {
-#if UNITY_STANDALONE_WIN && !UNITY_EDITOR
-        // 恢复默认行为
-        SetThreadExecutionState(ES_CONTINUOUS);
-#endif
-    }
 }

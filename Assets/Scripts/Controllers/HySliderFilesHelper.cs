@@ -1,3 +1,4 @@
+using Playsis.Essencial_Repos;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,16 +60,32 @@ public class HySliderFilesHelper : MonoBehaviour
         files = ConfusionArray(files);
         var resultStrs = files.GetRange(0, count);
         Dictionary<string, Texture2D> result = new();
+        int errorCount = 0;
         foreach (var item in resultStrs)
         {
-
-            //string path = Path.Combine(ImagesPath, item);
+            bool loaded = false;
             string path = item;
-            byte[] fileData = File.ReadAllBytes(path);
+            while (!loaded)
+            {
+                //string path = Path.Combine(ImagesPath, item);
+                byte[] fileData = File.ReadAllBytes(path);
 
-            Texture2D tex = new Texture2D(2, 2);
-            tex.LoadImage(fileData);
-            result.Add(item, tex);
+                Texture2D tex = new Texture2D(2, 2);
+                if (!tex.LoadImage(fileData))
+                {
+                    Log.SaveLog($"Error loading: {path}\n" +
+                        $"Is it in a correct format??");
+                    errorCount += 1;
+                    path = files[count + errorCount];
+                }
+                else
+                {
+                    loaded = true;
+                    result.Add(item, tex);
+                }
+                    
+
+            }
         }
         return result;
     }
