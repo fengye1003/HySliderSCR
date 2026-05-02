@@ -14,6 +14,7 @@ namespace Playsis.Essencial_Repos
         private static readonly object _fileLock = new object(); // 静态锁对象
         public static bool EnableLogs = true;
         public static bool EnableWriting = true;
+
         /// <summary>
         /// 存储日志
         /// </summary>
@@ -31,7 +32,8 @@ namespace Playsis.Essencial_Repos
                     message = "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + "] " + message;
                     if (EnableWriting)
                     {
-                        string Path = $"./";
+                        string Path = AppDomain.CurrentDomain.BaseDirectory;
+                        //string Path = $"./";
                         
                         //空格是为了增强日志可读性,DateTime的作用是获取目前时间
                         Directory.CreateDirectory($"{Path}/Log/");
@@ -71,8 +73,8 @@ namespace Playsis.Essencial_Repos
                     message = "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + $"] [{module}] " + message;
                     if (EnableWriting)
                     {
-                        string Path = $"./";
-                        
+                        string Path = AppDomain.CurrentDomain.BaseDirectory;
+
                         //空格是为了增强日志可读性,DateTime的作用是获取目前时间
                         Directory.CreateDirectory($"{Path}/Log/");
                         //如果不存在Log文件夹,则创建(会略微拖慢运行速度,但是用if判断一次代码量和工作量会大很多)
@@ -111,8 +113,8 @@ namespace Playsis.Essencial_Repos
                     message = "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + "] " + message;
                     if (EnableWriting)
                     {
-                        string Path = $"./";
-                        
+                        string Path = AppDomain.CurrentDomain.BaseDirectory;
+
                         //空格是为了增强日志可读性,DateTime的作用是获取目前时间
                         Directory.CreateDirectory($"{Path}/Log/");
                         //如果不存在Log文件夹,则创建(会略微拖慢运行速度,但是用if判断一次代码量和工作量会大很多)
@@ -152,8 +154,8 @@ namespace Playsis.Essencial_Repos
                 message = "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff") + $"] [{module}] " + message;
                 if (EnableWriting)
                 {
-                    string Path = $"./";
-                    
+                    string Path = AppDomain.CurrentDomain.BaseDirectory;
+
                     //空格是为了增强日志可读性,DateTime的作用是获取目前时间
                     Directory.CreateDirectory($"{Path}/Log/");
                     //如果不存在Log文件夹,则创建(会略微拖慢运行速度,但是用if判断一次代码量和工作量会大很多)
@@ -178,7 +180,7 @@ namespace Playsis.Essencial_Repos
         }
         public static void DoLogCleanUp()
         {
-            string Path = $"./";
+            string Path = AppDomain.CurrentDomain.BaseDirectory;
             Directory.CreateDirectory($"{Path}/Log/");
             var logFilesList = Directory.GetFiles($"{Path}/Log/");
             foreach (var logPath in logFilesList)
@@ -188,7 +190,7 @@ namespace Playsis.Essencial_Repos
         }
         public static void DoLogCleanUp(int saveEntries)
         {
-            string Path = $"./";
+            string Path = AppDomain.CurrentDomain.BaseDirectory;
             Directory.CreateDirectory($"{Path}/Log/");
             var logFilesList = Directory.GetFiles($"{Path}/Log/");
             if (logFilesList.Length < saveEntries)

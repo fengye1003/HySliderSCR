@@ -1,7 +1,11 @@
+using Playsis.Essencial_Repos;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,21 +29,76 @@ public class HySliderDaemon : MonoBehaviour
 
     float timer = 0f;
 
+    string Path = AppDomain.CurrentDomain.BaseDirectory;
+
+    public static Hashtable MainConfig;
+    public static Hashtable AnimConfig;
+    public static Hashtable PageConfig;
+
+    public static Hashtable mainConfigStandard = new()
+    {
+        { "type", "hySliderDaemon.Main" },
+        { "reverseAfterAnim" , "false" },
+        { "maxImgScale", "1.2" },
+        { "maxBlockScale", "1.2" },
+        { "maxAngleDeg", "30" },
+        { "transparencyDuration", "0.5" },
+        { "resizeDuration", "0.4" },
+        { "foldDuration", "0.5" },
+        { "slideDuration", "0.4" },
+        { "useSmoothFormula", "true" },
+    };
+
+    public static Hashtable animWeightsConfigStandard = new()
+    {
+        { "type", "hySliderDaemon.AnimWeights" },
+        { "SlideInAnimWeight" , "5" },
+        { "FlashInAnimWeight", "5" },
+        { "FoldInAnimWeight", "10" },
+    };
+
+    public static Hashtable pageWeightsConfigStandard = new()
+    {
+        { "type", "hySliderDaemon.AnimWeights" },
+        { "prefab0" , "intExample" },
+    };
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Instance = this;
+        
+
+
 #if UNITY_EDITOR
         //UnityEditor.EditorApplication.isPlaying = false;
 #else
             KillOtherInstances();
 #endif
-
+        if (!Directory.Exists(Path + "/Properties"))
+        {
+            Directory.CreateDirectory(Path + "./Properties");
+        }
+        MainConfig = 
+            PropertiesHelper.AutoCheck(
+                mainConfigStandard, 
+                Path + "/Properties/main.properties");
+        AnimConfig = 
+            PropertiesHelper.AutoCheck(
+                animWeightsConfigStandard, 
+                Path + "/Properties/animations.properties");
+        PageConfig =
+            PropertiesHelper.AutoCheck(
+                pageWeightsConfigStandard,
+                Path + "/Properties/pages.properties");
     }
+
+    
 
     // Update is called once per frame
     void Update()
     {
+
         System.Random r = new();
         if (lastPage == null || lastPage.AllCompleted())
         {
