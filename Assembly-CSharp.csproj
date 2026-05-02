@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\PrefabPages\PrefabPage9.cs" />
     <Compile Include="Assets\Scripts\Animations\FlashInAnim.cs" />
     <Compile Include="Assets\Scripts\Animations\BlurAnim.cs" />
+    <Compile Include="Assets\Scripts\InitialSceneController.cs" />
     <Compile Include="Assets\Scripts\TekoDotIOEssential\PropertiesHelper.cs" />
     <Compile Include="Assets\Scripts\PrefabPages\PrefabPage7.cs" />
     <Compile Include="Assets\Scripts\PrefabPages\PrefabPage12.cs" />

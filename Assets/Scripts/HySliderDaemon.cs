@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +29,12 @@ public class HySliderDaemon : MonoBehaviour
     void Start()
     {
         Instance = this;
-        
+#if UNITY_EDITOR
+        //UnityEditor.EditorApplication.isPlaying = false;
+#else
+            KillOtherInstances();
+#endif
+
     }
 
     // Update is called once per frame
@@ -105,5 +111,35 @@ public class HySliderDaemon : MonoBehaviour
         }
         Destroy(page.gameObject);
         //Debug.Log("Destroyed last page.");
+    }
+
+    void KillOtherInstances()
+    {
+        Process current = Process.GetCurrentProcess();
+        string processName = current.ProcessName;
+
+        Process[] processes = Process.GetProcessesByName(processName);
+
+        foreach (Process proc in processes)
+        {
+            try
+            {
+                // 跳过当前进程
+                if (proc.Id == current.Id)
+                    continue;
+
+                // 可选：进一步校验路径，避免误杀同名程序
+                if (proc.MainModule.FileName != current.MainModule.FileName)
+                    continue;
+
+                UnityEngine.Debug.Log($"Killing duplicate process: {proc.Id}");
+
+                proc.Kill();
+            }
+            catch (System.Exception e)
+            {
+                UnityEngine.Debug.LogWarning($"Failed to kill process {proc.Id}: {e.Message}");
+            }
+        }
     }
 }
